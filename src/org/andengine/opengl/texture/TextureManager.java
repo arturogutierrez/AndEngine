@@ -1,5 +1,6 @@
 package org.andengine.opengl.texture;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
 
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 
 /**
  * (c) 2010 Nicolas Gramlich
@@ -379,5 +382,23 @@ public class TextureManager {
 	
 	public interface TextureManagerListener {
 	    public void onTextureLoaded(int texturesRemaining);
+	}
+	
+	public void saveTexturesToSD() {
+	    int num = 0;
+	    for(ITexture texture : mTexturesManaged) {
+            if (texture instanceof BitmapTexture) {
+                try {
+                    BitmapTexture bt = (BitmapTexture)texture;
+                    Bitmap bitmap = bt.getBitmap();
+                    
+                    bitmap.compress(CompressFormat.PNG, 100, new FileOutputStream("/mnt/sdcard/AndEngine/image" + num + ".png"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            
+            num++;
+	    }
 	}
 }

@@ -138,6 +138,17 @@ public class BitmapTexture extends Texture {
 
 		return BitmapFactory.decodeStream(this.mInputStreamOpener.open(), null, decodeOptions);
 	}
+	
+	public Bitmap getBitmap() throws IOException {
+        final Config bitmapConfig = this.mBitmapTextureFormat.getBitmapConfig();
+        final Bitmap bitmap = this.onGetBitmap(bitmapConfig);
+
+        if(bitmap == null) {
+            throw new NullBitmapException("Caused by: '" + this.toString() + "'.");
+        }
+
+        return bitmap;
+	}
 
 	// ===========================================================
 	// Inner and Anonymous Classes
