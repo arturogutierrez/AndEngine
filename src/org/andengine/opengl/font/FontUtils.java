@@ -101,6 +101,9 @@ public class FontUtils {
 			/* Check if this is the last character. */
 			if(pos == (pEnd - 1)) {
 				width += letter.mOffsetX + letter.mWidth;
+            } else if (pos < (pEnd - 1) && pText.charAt(pos + 1) == '\n') {
+                width += letter.mOffsetX + letter.mWidth;
+                break;
 			} else {
 				width += letter.mAdvance;
 			}
@@ -238,19 +241,25 @@ public class FontUtils {
 				}
 			}
 			final int wordStart = i;
-
+			
 			/* Mark beginning of a new line. */
 			if(lineStart == FontUtils.UNSPECIFIED) {
 				lineStart = wordStart;
 			}
 
 			{ /* Skip non-whitespaces. */
-				while((i < textLength) && (pText.charAt(i) != ' ')) {
+				while((i < textLength) && (pText.charAt(i) != ' ') && (pText.charAt(i) != '\n')) {
 					i++;
 				}
 			}
 			final int wordEnd = i;
-
+			boolean newLine = false;
+			
+			if (i < textLength && pText.charAt(i) == '\n') {
+			    i++;
+			    newLine = true;
+			}
+			
 			/* Nothing more could be read. */
 			if(wordStart == wordEnd) {
 				if(!firstWordInLine) {
@@ -288,6 +297,17 @@ public class FontUtils {
 					pResult.add(pText.subSequence(lineStart, lineEnd));
 					/* Added the last line. */
 					break;
+				}
+				
+				if (newLine) {
+                    pResult.add(pText.subSequence(lineStart, lineEnd));
+                    
+                    /* Start a completely new line. */
+                    firstWordInLine = true;
+                    lastWordEnd = FontUtils.UNSPECIFIED;
+                    lineStart = FontUtils.UNSPECIFIED;
+                    lineEnd = FontUtils.UNSPECIFIED;
+                    lineWidthRemaining = pAutoWrapWidth;
 				}
 			} else {
 				/* Special case for lines with only one word. */
