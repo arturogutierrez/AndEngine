@@ -305,6 +305,10 @@ public class TextureManager {
             updateTextureMemoryUsed();
 		}
 	}
+	
+	public int getNumTexturesToBeLoaded() {
+	    return mTexturesToBeLoaded.size();
+	}
 
 	public synchronized ITexture getTexture(final String pID, final AssetManager pAssetManager, final String pAssetPath) throws IOException {
 		return this.getTexture(pID, pAssetManager, pAssetPath, TextureOptions.DEFAULT);
