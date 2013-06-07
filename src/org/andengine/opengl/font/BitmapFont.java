@@ -355,7 +355,12 @@ public class BitmapFont implements IFont {
 	public Letter getLetter(final char pChar) throws LetterNotFoundException {
 		final Letter letter = this.mCharacterToLetterMap.get(pChar);
 		if(letter == null) {
-			throw new LetterNotFoundException("Letter '" + pChar + "' not found.");
+		    final Letter space = this.mCharacterToLetterMap.get(' ');
+		    if (space == null) {
+		        throw new LetterNotFoundException("Letter '" + pChar + "' not found.");
+		    }
+		    
+		    return space;
 		}
 		return letter;
 	}
