@@ -183,7 +183,7 @@ public class Text extends RectangularShape {
 	 * @throws OutOfCharactersException leaves this {@link Text} object in an undefined state, until {@link Text#setText(CharSequence)} is called again and no {@link OutOfCharactersException} is thrown.
 	 */
 	public void setText(final CharSequence pText) throws OutOfCharactersException {
-		this.mText = pText;
+		this.mText = pText.length() > mCharactersMaximum ? pText.subSequence(0, mCharactersMaximum) : pText;
 		final IFont font = this.mFont;
 
 		this.mLines.clear();

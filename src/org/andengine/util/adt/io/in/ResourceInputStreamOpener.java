@@ -7,49 +7,54 @@ import android.content.res.Resources;
 
 /**
  * (c) Zynga 2012
- *
+ * 
  * @author Nicolas Gramlich <ngramlich@zynga.com>
  * @since 12:07:14 - 02.03.2012
  */
 public class ResourceInputStreamOpener implements IInputStreamOpener {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final Resources mResources;
-	private final int mResourceID;
+    private final Resources mResources;
+    private final int       mResourceID;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public ResourceInputStreamOpener(final Resources pResources, final int pResourceID) {
-		this.mResources = pResources;
-		this.mResourceID = pResourceID;
-	}
+    public ResourceInputStreamOpener(final Resources pResources, final int pResourceID) {
+        this.mResources = pResources;
+        this.mResourceID = pResourceID;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	@Override
-	public InputStream open() throws IOException {
-		return this.mResources.openRawResource(this.mResourceID);
-	}
+    @Override
+    public InputStream open() throws IOException {
+        return this.mResources.openRawResource(this.mResourceID);
+    }
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    @Override
+    public String toString() {
+        return "ResourceInputStreamOpener [mResources=" + mResources + ", mResourceID=" + mResourceID + "]";
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
+
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }
